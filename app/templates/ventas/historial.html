@@ -1,0 +1,133 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Historial Ventas
+{% endblock %}
+
+{% block header %}
+<i class="bi bi-clock-history"></i>
+Historial Ventas
+{% endblock %}
+
+{% block content %}
+
+<div class="table-modern">
+
+    <div class="table-header-premium">
+
+        <h5>
+
+            <i class="bi bi-receipt"></i>
+
+            Ventas Registradas
+
+        </h5>
+
+    </div>
+
+    <div class="table-responsive">
+
+        <table class="table table-premium align-middle">
+
+            <thead>
+
+                <tr>
+
+                    <th>Folio</th>
+                    <th>Fecha</th>
+                    <th>Pago</th>
+                    <th>Total</th>
+                    <th>Ticket</th>
+                    <th>PDF</th>
+
+                </tr>
+
+            </thead>
+
+            <tbody>
+
+                {% for v in ventas %}
+
+                <tr>
+
+                    <td>
+
+                        {{ v.folio }}
+
+                    </td>
+
+                    <td>
+
+                        {{ v.fecha_venta }}
+
+                    </td>
+
+                    <td>
+
+                        <span class="badge-soft">
+
+                            {{ v.nombre_pago }}
+
+                        </span>
+
+                    </td>
+
+                    <td>
+
+                        <strong>
+
+                            ${{ "%.2f"|format(
+                                v.total
+                            ) }}
+
+                        </strong>
+
+                    </td>
+
+                    <td>
+
+                        <a
+                            href="{{ url_for(
+                                'ventas.ticket',
+                                id_venta=v.id_venta
+                            ) }}"
+                            class="btn btn-edit">
+
+                            <i class="bi bi-receipt"></i>
+
+                            Ticket
+
+                        </a>
+
+                    </td>
+
+                    <td>
+
+                        <a
+                            href="{{ url_for(
+                                'ventas.ticket_pdf',
+                                id_venta=v.id_venta
+                            ) }}"
+                            class="btn btn-delete">
+
+                            <i class="bi bi-file-earmark-pdf"></i>
+
+                            PDF
+
+                        </a>
+
+                    </td>
+
+                </tr>
+
+                {% endfor %}
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</div>
+
+{% endblock %}

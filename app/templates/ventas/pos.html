@@ -1,0 +1,279 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Ventas POS
+{% endblock %}
+
+{% block header %}
+<i class="bi bi-cart-check"></i>
+Ventas POS
+{% endblock %}
+
+{% block content %}
+
+<div class="pos-grid">
+
+    <!-- LEFT -->
+
+    <div class="pos-card">
+
+        <div class="form-title mb-4">
+
+            <i class="bi bi-upc-scan"></i>
+
+            <h4>
+
+                Captura Producto
+
+            </h4>
+
+        </div>
+
+        <form
+            method="POST"
+            action="{{ url_for('ventas.agregar_producto') }}">
+
+            <label class="form-label-premium">
+
+                Código Barras
+
+            </label>
+
+            <input
+                type="text"
+                name="codigo_barras"
+                required
+                autofocus
+                class="form-control form-control-premium"
+                placeholder="Escanear o escribir código">
+
+            <div class="mt-3">
+
+                <button
+                    type="submit"
+                    class="btn btn-save-form">
+
+                    <i class="bi bi-plus-circle"></i>
+
+                    Agregar
+
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+    <!-- RIGHT -->
+
+    <div class="pos-card">
+
+        <div class="table-header-premium pos-ticket-header">
+
+            <div>
+
+                <h5>
+                    <i class="bi bi-receipt"></i>
+                    Ticket
+                </h5>
+
+                <small>
+
+                    {{ carrito|length }}
+
+                    productos
+
+                </small>
+
+            </div>
+
+            <a
+                href="{{ url_for('ventas.limpiar_carrito') }}"
+                class="btn-cancel-mini">
+
+                <i class="bi bi-x-circle"></i>
+
+                Cancelar Venta
+
+            </a>
+
+        </div>
+
+        <div class="table-responsive">
+
+            <table
+                class="table table-premium align-middle">
+
+                <thead>
+
+                    <tr>
+
+                        <th>Producto</th>
+                        <th>Cant</th>
+                        <th>Precio</th>
+                        <th>Subtotal</th>
+                        <th></th>
+
+                    </tr>
+
+                </thead>
+
+                <tbody>
+
+                    {% if carrito %}
+
+                        {% for item in carrito %}
+
+                        <tr>
+                            <td>{{ item.nombre }}</td>
+                            <td>{{ item.cantidad }}</td>
+                            <td>${{ item.precio }}</td>
+                            <td>${{ item.subtotal }}</td>
+                            <td>
+                                <a
+                                    href="{{ url_for('ventas.eliminar_item',
+                                    id_producto=item.id_producto) }}"
+                                    class="btn btn-delete-mini">
+
+                                    <i class="bi bi-trash"></i>
+                                </a>
+                            </td>
+                        </tr>
+
+                        {% endfor %}
+
+                    {% else %}
+
+                    <tr>
+
+                        <td
+                            colspan="4"
+                            class="text-center text-muted py-4">
+
+                            <i class="bi bi-cart-x fs-4"></i>
+
+                            <br>
+
+                            Carrito vacío
+
+                        </td>
+
+                    </tr>
+
+                    {% endif %}
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+        <!-- Selección de tipo de pago -->
+        <div class="mt-4">
+
+            <label
+                class="form-label-premium">
+
+                Tipo Pago
+
+            </label>
+
+            <select
+                name="id_tipo_pago"
+                id="id_tipo_pago"
+                class="form-select form-select-premium">
+
+                {% for tp in tipos_pago %}
+
+                <option
+                    value="{{ tp.id_tipo_pago }}">
+
+                    {{ tp.nombre_pago }}
+
+                </option>
+
+                {% endfor %}
+
+            </select>
+
+        </div>
+
+        <!-- Totals -->
+
+        <div class="ticket-total-box">
+
+            <div>
+
+                <span>
+
+                    Total
+
+                </span>
+
+                <h4>
+
+                    ${{ "%.2f"|format(total) }}
+
+                </h4>
+
+            </div>
+
+        </div>
+
+        <!-- Botones -->
+        <form
+            method="POST"
+            action="{{ url_for('ventas.cobrar') }}">
+
+            <input
+                type="hidden"
+                name="id_tipo_pago"
+                id="tipo_pago_hidden">
+
+            <div class="form-actions d-flex gap-2 mt-3">
+
+                <button
+                    type="submit"
+                    class="btn btn-save-form">
+
+                    <i class="bi bi-cash-stack"></i>
+
+                    Cobrar
+
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+<script>
+
+document.querySelector(
+'#id_tipo_pago'
+
+).addEventListener(
+
+'change',
+
+function(){
+
+document.querySelector(
+'#tipo_pago_hidden'
+).value = this.value;
+
+});
+
+document.querySelector(
+'#tipo_pago_hidden'
+).value = document.querySelector(
+'#id_tipo_pago'
+).value;
+
+</script>
+
+{% endblock %}

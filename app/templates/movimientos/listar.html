@@ -1,0 +1,146 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Movimientos
+{% endblock %}
+
+{% block header %}
+<i class="bi bi-arrow-left-right"></i>
+Movimientos Inventario
+{% endblock %}
+
+{% block content %}
+
+<div class="dashboard-table-card">
+
+    <div class="table-header-premium">
+
+        <div>
+
+            <h5>
+
+                <i
+                    class="bi bi-arrow-left-right text-primary">
+                </i>
+
+                Historial de Movimientos
+
+            </h5>
+
+            <small>
+
+                Entradas, salidas y ajustes
+
+            </small>
+
+        </div>
+
+    </div>
+
+    <div class="table-responsive">
+
+        <table
+            class="table table-premium align-middle">
+
+            <thead>
+
+                <tr>
+
+                    <th>Fecha</th>
+                    <th>Producto</th>
+                    <th>Tipo</th>
+                    <th>Cantidad</th>
+                    <th>Usuario</th>
+                    <th>Motivo</th>
+
+                </tr>
+
+            </thead>
+
+            <tbody>
+
+                {% for m in movimientos %}
+
+                <tr>
+
+                    <td>
+
+                        {{ m.fecha_movimiento }}
+
+                    </td>
+
+                    <td>
+
+                        {{ m.producto }}
+
+                    </td>
+
+                    <td>
+
+                        {% if m.tipo_movimiento == 'ENTRADA' %}
+
+                            <span class="badge-mov badge-entrada">
+
+                                ENTRADA
+
+                            </span>
+
+                        {% elif m.tipo_movimiento == 'VENTA' %}
+
+                            <span class="badge-mov badge-venta">
+
+                                VENTA
+
+                            </span>
+
+                        {% elif m.tipo_movimiento == 'AJUSTE' %}
+
+                            <span class="badge-mov badge-ajuste">
+
+                                AJUSTE
+
+                            </span>
+
+                        {% else %}
+
+                            <span class="badge-mov badge-salida">
+
+                                SALIDA
+
+                            </span>
+
+                        {% endif %}
+
+                    </td>
+
+                    <td>
+
+                        {{ m.cantidad }}
+
+                    </td>
+
+                    <td>
+
+                        Oscar
+
+                    </td>
+
+                    <td>
+
+                        {{ m.motivo }}
+
+                    </td>
+
+                </tr>
+
+                {% endfor %}
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,190 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Dashboard
+{% endblock %}
+
+{% block header %}
+<i class="bi bi-speedometer2"></i>
+Dashboard
+{% endblock %}
+
+{% block content %}
+
+<!-- KPI CARDS -->
+
+<div class="dashboard-grid">
+
+    <!-- Productos -->
+
+    <div class="kpi-card kpi-blue">
+
+        <div>
+
+            <span class="kpi-label">
+
+                Productos
+
+            </span>
+
+            <h3>
+
+                {{ total_productos }}
+
+            </h3>
+
+        </div>
+
+        <i class="bi bi-box-seam kpi-icon"></i>
+
+    </div>
+
+    <!-- Stock bajo -->
+
+    <div class="kpi-card kpi-red">
+
+        <div>
+
+            <span class="kpi-label">
+
+                Stock Bajo
+
+            </span>
+
+            <h3>
+
+                {{ stock_bajo }}
+
+            </h3>
+
+        </div>
+
+        <i class="bi bi-exclamation-triangle kpi-icon"></i>
+
+    </div>
+
+    <!-- Categorias -->
+
+    <div class="kpi-card kpi-green">
+
+        <div>
+
+            <span class="kpi-label">
+
+                Categorías
+
+            </span>
+
+            <h3>
+
+                {{ total_categorias }}
+
+            </h3>
+
+        </div>
+
+        <i class="bi bi-tags kpi-icon"></i>
+
+    </div>
+
+    <!-- Proveedores -->
+
+    <div class="kpi-card kpi-purple">
+
+        <div>
+
+            <span class="kpi-label">
+
+                Proveedores
+
+            </span>
+
+            <h3>
+
+                {{ total_proveedores }}
+
+            </h3>
+
+        </div>
+
+        <i class="bi bi-truck kpi-icon"></i>
+
+    </div>
+
+</div>
+
+<!-- STOCK BAJO -->
+
+<div class="dashboard-table-card">
+
+    <div class="table-header-premium">
+
+        <div>
+
+            <h5>
+
+                <i class="bi bi-exclamation-circle"></i>
+
+                Productos con Stock Bajo
+
+            </h5>
+
+            <small>
+
+                Productos que requieren revisión
+
+            </small>
+
+        </div>
+
+    </div>
+
+    <div class="table-responsive">
+
+        <table class="table table-premium align-middle">
+
+            <thead>
+
+                <tr>
+
+                    <th>Producto</th>
+                    <th>Stock</th>
+                    <th>Mínimo</th>
+
+                </tr>
+
+            </thead>
+
+            <tbody>
+
+                {% for p in productos_stock_bajo %}
+
+                <tr>
+
+                    <td>{{ p.nombre }}</td>
+
+                    <td>
+
+                        <span class="badge-stock-low">
+
+                            {{ p.stock_actual }}
+
+                        </span>
+
+                    </td>
+
+                    <td>{{ p.stock_minimo }}</td>
+
+                </tr>
+
+                {% endfor %}
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</div>
+
+{% endblock %}

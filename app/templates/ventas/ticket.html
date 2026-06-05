@@ -1,0 +1,173 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Ticket
+{% endblock %}
+
+{% block header %}
+<i class="bi bi-receipt-cutoff"></i>
+Ticket Venta
+{% endblock %}
+
+{% block content %}
+
+<div class="ticket-wrapper">
+
+    <div class="ticket-card">
+
+        <!-- Header -->
+
+        <div class="ticket-top">
+
+            <h3>
+
+                <i class="bi bi-shop"></i>
+
+                Abarrotes
+
+            </h3>
+
+            <span class="ticket-badge">
+
+                {{ venta.folio }}
+
+            </span>
+
+        </div>
+
+        <div class="ticket-info">
+
+            <p>
+
+                <strong>Fecha:</strong>
+
+                {{ venta.fecha_venta }}
+
+            </p>
+
+            <p>
+
+                <strong>Pago:</strong>
+
+                {{ venta.nombre_pago }}
+
+            </p>
+
+        </div>
+
+        <!-- Tabla -->
+
+        <table class="table ticket-table">
+
+            <thead>
+
+                <tr>
+
+                    <th>Producto</th>
+                    <th>Cant</th>
+                    <th>Precio</th>
+                    <th>Sub</th>
+
+                </tr>
+            </thead>
+
+            <tbody>
+
+                {% for item in detalle %}
+
+                <tr>
+
+                    <td>{{ item.nombre }}</td>
+
+                    <td>{{ item.cantidad }}</td>
+
+                    <td>
+
+                        ${{ "%.2f"|format(
+                            item.precio_unitario
+                        ) }}
+
+                    </td>
+
+                    <td>
+
+                        ${{ "%.2f"|format(
+                            item.subtotal
+                        ) }}
+
+                    </td>
+
+                </tr>
+
+                {% endfor %}
+
+            </tbody>
+
+        </table>
+
+        <!-- Total -->
+
+        <div class="ticket-total">
+
+            TOTAL
+
+            <span>
+
+                ${{ "%.2f"|format(
+                    venta.total
+                ) }}
+
+            </span>
+
+        </div>
+
+        <!-- Actions -->
+
+        <div class="ticket-actions">
+
+            <!-- Print -->
+
+            <button
+                onclick="window.print()"
+                class="btn btn-ticket-print">
+
+                <i class="bi bi-printer"></i>
+
+                Imprimir
+
+            </button>
+
+            <!-- PDF -->
+
+            <a
+                href="{{ url_for(
+                    'ventas.ticket_pdf',
+                    id_venta=venta.id_venta
+                ) }}"
+                class="btn btn-ticket-pdf">
+
+                <i class="bi bi-file-earmark-pdf"></i>
+
+                PDF
+
+            </a>
+
+            <!-- Back -->
+
+            <a
+                href="{{ url_for('ventas.pos') }}"
+                class="btn btn-ticket-back">
+
+                <i class="bi bi-arrow-left"></i>
+
+                Ventas
+
+            </a>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

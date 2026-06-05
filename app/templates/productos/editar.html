@@ -1,0 +1,240 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Editar Producto
+{% endblock %}
+
+{% block header %}
+<i class="bi bi-pencil-square"></i>
+Editar Producto
+{% endblock %}
+
+{% block content %}
+
+<div class="form-card">
+
+    <div class="form-toolbar">
+
+        <div class="form-title">
+
+            <i class="bi bi-pencil-square"></i>
+
+            <h4>Editar Producto</h4>
+
+        </div>
+
+    </div>
+
+    <form
+        method="POST"
+        action="/productos/actualizar/{{ producto.id_producto }}">
+
+        <div class="row g-4">
+
+            <!-- Codigo -->
+
+            <div class="col-md-6">
+
+                <label class="form-label-premium">
+
+                    Código Barras
+
+                </label>
+
+                <input
+                    type="text"
+                    name="codigo_barras"
+                    value="{{ producto.codigo_barras }}"
+                    class="form-control form-control-premium"
+                    required>
+
+            </div>
+
+            <!-- Nombre -->
+
+            <div class="col-md-6">
+
+                <label class="form-label-premium">
+
+                    Nombre
+
+                </label>
+
+                <input
+                    type="text"
+                    name="nombre"
+                    value="{{ producto.nombre }}"
+                    class="form-control form-control-premium"
+                    required>
+
+            </div>
+
+            <!-- Descripcion -->
+
+            <div class="col-12">
+
+                <label class="form-label-premium">
+
+                    Descripción
+
+                </label>
+
+                <textarea
+                    name="descripcion"
+                    rows="3"
+                    class="form-control form-control-premium">{{ producto.descripcion|trim }}</textarea>
+
+            </div>
+
+            <!-- Precio -->
+
+            <div class="col-md-4">
+
+                <label class="form-label-premium">
+
+                    Precio
+
+                </label>
+
+                <input
+                    type="number"
+                    step="0.01"
+                    min="0"
+                    name="precio"
+                    value="{{ producto.precio }}"
+                    class="form-control form-control-premium"
+                    required>
+
+            </div>
+
+            <!-- Stock -->
+
+            <div class="col-md-4">
+
+                <label class="form-label-premium">
+
+                    Stock
+
+                </label>
+
+                <input
+                    type="number"
+                    min="0"
+                    name="stock_actual"
+                    value="{{ producto.stock_actual }}"
+                    class="form-control form-control-premium"
+                    required>
+
+            </div>
+
+            <!-- Stock minimo -->
+
+            <div class="col-md-4">
+
+                <label class="form-label-premium">
+
+                    Stock Mínimo
+
+                </label>
+
+                <input
+                    type="number"
+                    min="0"
+                    name="stock_minimo"
+                    value="{{ producto.stock_minimo }}"
+                    class="form-control form-control-premium"
+                    required>
+
+            </div>
+
+            <!-- Categoria -->
+
+            <div class="col-md-6">
+
+                <label class="form-label-premium">
+
+                    Categoría
+
+                </label>
+
+                <select
+                    name="id_categoria"
+                    class="form-select form-select-premium"
+                    required>
+
+                    {% for c in categorias %}
+                    <option
+                        value="{{ c.id_categoria }}"
+                        {% if c.id_categoria == producto.id_categoria %}selected{% endif %}>
+
+                        {{ c.nombre_categoria }}
+
+                    </option>
+                    {% endfor %}
+
+                </select>
+
+            </div>
+
+            <!-- Proveedor -->
+
+            <div class="col-md-6">
+
+                <label class="form-label-premium">
+
+                    Proveedor
+
+                </label>
+
+                <select
+                    name="id_proveedor"
+                    class="form-select form-select-premium"
+                    required>
+
+                    {% for p in proveedores %}
+                    <option
+                        value="{{ p.id_proveedor }}"
+                        {% if p.id_proveedor == producto.id_proveedor %}selected{% endif %}>
+
+                        {{ p.nombre }}
+
+                    </option>
+                    {% endfor %}
+
+                </select>
+
+            </div>
+
+        </div>
+
+        <!-- Buttons -->
+
+        <div class="form-actions">
+
+            <a
+                href="{{ url_for('productos.listar_productos') }}"
+                class="btn btn-cancel-form">
+
+                <i class="bi bi-arrow-left"></i>
+
+                Cancelar
+
+            </a>
+
+            <button
+                type="submit"
+                class="btn btn-save-form">
+
+                <i class="bi bi-check-circle"></i>
+
+                Actualizar
+
+            </button>
+
+        </div>
+
+    </form>
+
+</div>
+
+{% endblock %}

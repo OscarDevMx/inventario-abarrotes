@@ -1,0 +1,286 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Reportes
+{% endblock %}
+
+{% block header %}
+<i class="bi bi-bar-chart-line"></i>
+Reportes
+{% endblock %}
+
+{% block content %}
+
+<!-- KPI CARDS -->
+
+<div class="dashboard-grid">
+
+    <!-- Ventas -->
+
+    <div class="kpi-card kpi-blue">
+
+        <div>
+
+            <span class="kpi-label">
+
+                Ventas Totales
+
+            </span>
+
+            <h3>
+
+                {{ kpis.ventas_totales }}
+
+            </h3>
+
+        </div>
+
+        <i class="bi bi-receipt kpi-icon"></i>
+
+    </div>
+
+    <!-- Ingresos -->
+
+    <div class="kpi-card kpi-green">
+
+        <div>
+
+            <span class="kpi-label">
+
+                Ingresos
+
+            </span>
+
+            <h3>
+
+                ${{ "%.2f"|format(
+                    kpis.ingresos
+                ) }}
+
+            </h3>
+
+        </div>
+
+        <i class="bi bi-cash-stack kpi-icon"></i>
+
+    </div>
+
+    <!-- Ticket Promedio -->
+
+    <div class="kpi-card kpi-purple">
+
+        <div>
+
+            <span class="kpi-label">
+
+                Ticket Promedio
+
+            </span>
+
+            <h3>
+
+                ${{ "%.2f"|format(
+                    kpis.ticket_promedio
+                ) }}
+
+            </h3>
+
+        </div>
+
+        <i class="bi bi-graph-up kpi-icon"></i>
+
+    </div>
+
+    <!-- Productos Vendidos -->
+
+    <div class="kpi-card kpi-orange">
+
+        <div>
+
+            <span class="kpi-label">
+
+                Productos Vendidos
+
+            </span>
+
+            <h3>
+
+                {{ kpis.productos_vendidos }}
+
+            </h3>
+
+        </div>
+
+        <i class="bi bi-bag-check kpi-icon"></i>
+
+    </div>
+
+</div>
+
+<!-- ULTIMAS VENTAS -->
+
+<div class="dashboard-table-card">
+
+    <div class="table-header-premium">
+
+        <div>
+
+            <h5>
+
+                <i class="bi bi-receipt"></i>
+
+                Últimas Ventas
+
+            </h5>
+
+            <small>
+
+                Actividad reciente del sistema
+
+            </small>
+
+        </div>
+
+    </div>
+
+    <div class="table-responsive">
+
+        <table
+            class="table table-premium align-middle">
+
+            <thead>
+
+                <tr>
+
+                    <th>Folio</th>
+                    <th>Fecha</th>
+                    <th>Pago</th>
+                    <th>Total</th>
+
+                </tr>
+
+            </thead>
+
+            <tbody>
+
+                {% for v in ventas %}
+
+                <tr>
+
+                    <td>{{ v.folio }}</td>
+
+                    <td>{{ v.fecha_venta }}</td>
+
+                    <td>
+
+                        <span class="badge-soft">
+
+                            {{ v.nombre_pago }}
+
+                        </span>
+
+                    </td>
+
+                    <td>
+
+                        <strong>
+
+                            ${{ "%.2f"|format(
+                                v.total
+                            ) }}
+
+                        </strong>
+
+                    </td>
+
+                </tr>
+
+                {% endfor %}
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</div>
+
+<br>
+
+<!-- TOP PRODUCTOS -->
+
+<div class="dashboard-table-card">
+
+    <div class="table-header-premium">
+
+        <div>
+
+            <h5>
+
+                <i class="bi bi-star"></i>
+
+                Top Productos Vendidos
+
+            </h5>
+
+            <small>
+
+                Productos con mayor rotación
+
+            </small>
+
+        </div>
+
+    </div>
+
+    <div class="table-responsive">
+
+        <table
+            class="table table-premium align-middle">
+
+            <thead>
+
+                <tr>
+
+                    <th>Producto</th>
+                    <th>Vendidos</th>
+
+                </tr>
+
+            </thead>
+
+            <tbody>
+
+                {% for p in top %}
+
+                <tr>
+
+                    <td>
+
+                        {{ p.nombre }}
+
+                    </td>
+
+                    <td>
+
+                        <span class="badge-soft">
+
+                            {{ p.cantidad_vendida }}
+
+                        </span>
+
+                    </td>
+
+                </tr>
+
+                {% endfor %}
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</div>
+
+{% endblock %}
