@@ -14,7 +14,8 @@ def obtener_productos(busqueda=''):
             c.nombre_categoria,
             pr.nombre AS proveedor,
             p.precio,
-            p.stock_actual
+            p.stock_actual,
+            p.stock_minimo
         FROM productos p
         JOIN categorias c
             ON p.id_categoria = c.id_categoria

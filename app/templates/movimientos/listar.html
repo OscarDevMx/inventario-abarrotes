@@ -77,7 +77,7 @@ Movimientos Inventario
 
                         {% if m.tipo_movimiento == 'ENTRADA' %}
 
-                            <span class="badge-mov badge-entrada">
+                            <span class="badge bg-success">
 
                                 ENTRADA
 
@@ -85,7 +85,7 @@ Movimientos Inventario
 
                         {% elif m.tipo_movimiento == 'VENTA' %}
 
-                            <span class="badge-mov badge-venta">
+                            <span class="badge bg-primary">
 
                                 VENTA
 
@@ -93,7 +93,7 @@ Movimientos Inventario
 
                         {% elif m.tipo_movimiento == 'AJUSTE' %}
 
-                            <span class="badge-mov badge-ajuste">
+                            <span class="badge bg-warning text-dark">
 
                                 AJUSTE
 
@@ -101,7 +101,7 @@ Movimientos Inventario
 
                         {% else %}
 
-                            <span class="badge-mov badge-salida">
+                            <span class="badge bg-danger">
 
                                 SALIDA
 
