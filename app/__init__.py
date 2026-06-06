@@ -5,6 +5,8 @@ from app.routes.ventas import ventas_bp
 from app.routes.reportes import (reportes_bp)
 from app.routes.movimientos import (movimientos_bp)
 from app.routes.categorias import (categorias_bp)
+from app.routes.proveedores import (proveedores_bp)
+
 
 
 def create_app():
@@ -16,6 +18,7 @@ def create_app():
     app.register_blueprint(reportes_bp)
     app.register_blueprint(movimientos_bp)
     app.register_blueprint(categorias_bp)
+    app.register_blueprint(proveedores_bp)
     
     try:
         conn = get_connection()

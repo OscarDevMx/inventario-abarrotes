@@ -8,6 +8,7 @@ inventario-abarrotes/
 │   │   └── reportes.py
 │   │   └── movimientos.py
 │   │   └── categorias.py
+│   │   └── proveedores.py
 │   │
 │   ├── services/
 │   │   └── producto_service.py
@@ -15,6 +16,7 @@ inventario-abarrotes/
 │   │   └── reporte_service.py
 │   │   └── movimiento_service.py
 │   │   └── categoria_service.py
+│   │   └── proveedor_service.py
 │   │
 │   ├── database/
 │   │   └── connection.py
@@ -33,6 +35,8 @@ inventario-abarrotes/
 │   │   └── movimientos/
 │   │       └── listar.html
 │   │   └── categorias/
+│   │       └── listar.html
+│   │   └── proveedores/
 │   │       └── listar.html
 │   │
 │   ├── static/

@@ -1,0 +1,506 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Proveedores
+{% endblock %}
+
+{% block header %}
+<i class="bi bi-truck"></i>
+Gestión de Proveedores
+{% endblock %}
+
+{% block content %}
+
+<div class="module-card">
+
+    <!-- Toolbar -->
+
+    <div class="module-toolbar">
+
+        <div class="module-title">
+
+            <i class="bi bi-tags"></i>
+
+            <h4>
+
+                Catálogo de Proveedores
+
+            </h4>
+
+        </div>
+
+        <button
+            class="btn btn-new"
+            data-bs-toggle="modal"
+            data-bs-target="#createProveedorModal">
+
+            <i class="bi bi-plus-circle"></i>
+
+            Nuevo Proveedor
+
+        </button>
+
+    </div>
+
+    <!-- Tabla -->
+
+    <div class="table-responsive">
+
+        <table
+            class="table product-table align-middle">
+
+            <thead>
+
+                <tr>
+
+                    <th>Proveedor</th>
+
+                    <th>Teléfono</th>
+
+                    <th>Email</th>
+
+                    <th>Estado</th>
+
+                    <th>Acciones</th>
+
+                </tr>
+
+            </thead>
+
+            <tbody>
+
+                {% for p in proveedores %}
+
+                <tr>
+
+                    <td>
+
+                        {{ p.nombre }}
+
+                    </td>
+                    <td>
+
+                        {{ p.telefono }}
+
+                    </td>
+                    <td>
+
+                        {{ p.email }}
+
+                    </td>
+                    <td>
+
+                        {% if p.activo %}
+
+                        <span
+                            class="badge-stock-ok">
+
+                            Activo
+
+                        </span>
+
+                        {% else %}
+
+                        <span
+                            class="badge-stock-low">
+
+                            Inactivo
+
+                        </span>
+
+                        {% endif %}
+
+                    </td>
+
+                    <td>
+
+                        <div class="action-buttons">
+                            {% if p.activo %}
+
+                                <button
+                                    class="btn btn-edit"
+                                    data-bs-toggle="modal"
+                                    data-bs-target="#editProveedorModal{{ p.id_proveedor }}">
+
+                                    <i class="bi bi-pencil"></i>
+
+                                    Editar
+
+                                </button>
+
+                                <!-- Modal Editar -->
+
+                                <div
+                                    class="modal fade"
+                                    id="editProveedorModal{{ p.id_proveedor }}"
+                                    tabindex="-1">
+
+                                    <div class="modal-dialog">
+
+                                        <div class="modal-content">
+
+                                            <form
+                                                method="POST"
+                                                action="{{ url_for(
+                                                    'proveedores.editar_proveedor',
+                                                    id_proveedor=p.id_proveedor
+                                                ) }}">
+
+                                                <div
+                                                    class="modal-header modal-premium-header">
+
+                                                    <h5
+                                                        class="modal-title d-flex align-items-center gap-2">
+
+                                                        <i class="bi bi-pencil-square"></i>
+
+                                                        Editar Proveedor
+
+                                                    </h5>
+
+                                                    <button
+                                                        type="button"
+                                                        class="btn-close"
+                                                        data-bs-dismiss="modal">
+                                                    </button>
+
+                                                </div>
+
+                                                <div class="modal-body">
+
+                                                    <div class="mb-3">
+
+                                                        <label class="form-label">
+
+                                                            Nombre
+
+                                                        </label>
+
+                                                        <input
+                                                            type="text"
+                                                            name="nombre"
+                                                            class="form-control"
+                                                            value="{{ p.nombre }}"
+                                                            required>
+
+                                                    </div>
+
+                                                    <div class="mb-3">
+
+                                                        <label class="form-label">
+
+                                                            Teléfono
+
+                                                        </label>
+
+                                                        <input
+                                                            type="text"
+                                                            name="telefono"
+                                                            class="form-control"
+                                                            value="{{ p.telefono or '' }}">
+
+                                                    </div>
+
+                                                    <div>
+
+                                                        <label class="form-label">
+
+                                                            Email
+
+                                                        </label>
+
+                                                        <input
+                                                            type="email"
+                                                            name="email"
+                                                            class="form-control"
+                                                            value="{{ p.email or '' }}">
+
+                                                    </div>
+
+                                                </div>
+
+                                                <div
+                                                    class="modal-footer border-0 pt-0">
+
+                                                    <button
+                                                        type="button"
+                                                        class="btn btn-cancel-modal"
+                                                        data-bs-dismiss="modal">
+
+                                                        <i class="bi bi-x-circle"></i>
+
+                                                        Cancelar
+
+                                                    </button>
+
+                                                    <button
+                                                        type="submit"
+                                                        class="btn btn-edit">
+
+                                                        <i class="bi bi-check-circle"></i>
+
+                                                        Guardar Cambios
+
+                                                    </button>
+
+                                                </div>
+
+                                            </form>
+
+                                        </div>
+
+                                    </div>
+
+                                </div>
+                                
+                                <!-- Botón Desactivar -->
+                                <button
+                                    class="btn btn-delete"
+                                    data-bs-toggle="modal"
+                                    data-bs-target="#deleteProveedorModal{{ p.id_proveedor }}">
+
+                                    <i class="bi bi-trash"></i>
+
+                                    Desactivar
+
+                                </button>
+
+                                <!-- Modal Desactivar -->
+                                <div
+                                    class="modal fade"
+                                    id="deleteProveedorModal{{ p.id_proveedor }}"
+                                    tabindex="-1">
+
+                                    <div class="modal-dialog">
+
+                                        <div class="modal-content">
+
+                                            <div
+                                                class="modal-header modal-premium-header">
+
+                                                <h5
+                                                    class="modal-title d-flex align-items-center gap-2">
+
+                                                    <i class="bi bi-trash3"></i>
+
+                                                    Confirmar desactivación
+
+                                                </h5>
+
+                                                <button
+                                                    type="button"
+                                                    class="btn-close"
+                                                    data-bs-dismiss="modal">
+                                                </button>
+
+                                            </div>
+
+                                            <div class="modal-body">
+
+                                                <p class="mb-2">
+
+                                                    ¿Deseas desactivar este proveedor?
+
+                                                </p>
+
+                                                <div class="modal-product-name">
+
+                                                    {{ p.nombre }}
+
+                                                </div>
+
+                                                <small class="text-muted">
+
+                                                    El proveedor permanecerá en la base de datos
+                                                    pero dejará de estar disponible.
+
+                                                </small>
+
+                                            </div>
+
+                                            <div
+                                                class="modal-footer border-0 pt-0">
+
+                                                <button
+                                                    type="button"
+                                                    class="btn btn-cancel-modal"
+                                                    data-bs-dismiss="modal">
+
+                                                    <i class="bi bi-x-circle"></i>
+
+                                                    Cancelar
+
+                                                </button>
+
+                                                <a
+                                                    href="{{ url_for(
+                                                        'proveedores.desactivar_proveedor_route',
+                                                        id_proveedor=p.id_proveedor
+                                                    ) }}"
+                                                    class="btn btn-delete-modal">
+
+                                                    <i class="bi bi-trash3"></i>
+
+                                                    Desactivar
+
+                                                </a>
+
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+
+                                </div>
+                            {% else %}
+                                <a
+                                    href="{{ url_for(
+                                        'proveedores.activar_proveedor_route',
+                                        id_proveedor=p.id_proveedor
+                                    ) }}"
+                                    class="btn btn-active">
+
+                                    <i class="bi bi-check-circle"></i>
+
+                                    Activar
+
+                                </a>
+
+                            {% endif %}
+
+                        </div>
+
+                    </td>
+
+                </tr>
+
+                {% endfor %}
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</div>
+
+<!-- Modal Crear Proveedor -->
+
+<div
+    class="modal fade"
+    id="createProveedorModal"
+    tabindex="-1">
+
+    <div class="modal-dialog">
+
+        <div class="modal-content">
+
+            <form
+                method="POST"
+                action="{{ url_for('proveedores.crear_proveedor') }}">
+
+                <div
+                    class="modal-header modal-premium-header">
+
+                    <h5
+                        class="modal-title d-flex align-items-center gap-2">
+
+                        <i class="bi bi-plus-circle"></i>
+
+                        Nuevo Proveedor
+
+                    </h5>
+
+                    <button
+                        type="button"
+                        class="btn-close"
+                        data-bs-dismiss="modal">
+                    </button>
+
+                </div>
+
+                <div class="modal-body">
+
+                    <div class="mb-3">
+
+                        <label class="form-label">
+
+                            Nombre
+
+                        </label>
+
+                        <input
+                            type="text"
+                            name="nombre"
+                            class="form-control"
+                            required>
+
+                    </div>
+
+                    <div class="mb-3">
+
+                        <label class="form-label">
+
+                            Teléfono
+
+                        </label>
+
+                        <input
+                            type="text"
+                            name="telefono"
+                            class="form-control">
+
+                    </div>
+
+                    <div>
+
+                        <label class="form-label">
+
+                            Email
+
+                        </label>
+
+                        <input
+                            type="email"
+                            name="email"
+                            class="form-control">
+
+                    </div>
+
+                </div>
+
+                <div
+                    class="modal-footer border-0 pt-0">
+
+                    <button
+                        type="button"
+                        class="btn btn-cancel-modal"
+                        data-bs-dismiss="modal">
+
+                        <i class="bi bi-x-circle"></i>
+
+                        Cancelar
+
+                    </button>
+
+                    <button
+                        type="submit"
+                        class="btn btn-new">
+
+                        <i class="bi bi-check-circle"></i>
+
+                        Guardar
+
+                    </button>
+
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}
