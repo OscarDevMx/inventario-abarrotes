@@ -7,12 +7,14 @@ inventario-abarrotes/
 │   │   └── ventas.py
 │   │   └── reportes.py
 │   │   └── movimientos.py
+│   │   └── categorias.py
 │   │
 │   ├── services/
 │   │   └── producto_service.py
 │   │   └── venta_service.py
 │   │   └── reporte_service.py
 │   │   └── movimiento_service.py
+│   │   └── categoria_service.py
 │   │
 │   ├── database/
 │   │   └── connection.py
@@ -29,6 +31,8 @@ inventario-abarrotes/
 │   │   └── reportes/
 │   │       └── dashboard.html
 │   │   └── movimientos/
+│   │       └── listar.html
+│   │   └── categorias/
 │   │       └── listar.html
 │   │
 │   ├── static/

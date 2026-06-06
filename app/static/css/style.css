@@ -543,6 +543,40 @@ body{
     transform:none;
 }
 
+/* Activate */
+
+.btn-active{
+
+    border:1px solid #279c66;
+
+    background:#fff;
+
+    color:#279c66;
+
+    border-radius:8px;
+
+    padding:7px 14px;
+
+    font-size:14px;
+
+    font-weight:500;
+
+    display:flex;
+    align-items:center;
+    gap:6px;
+
+    transition:.18s ease;
+}
+
+.btn-active:hover{
+
+    background:#f0fdf4;
+
+    color:#1a6843;
+
+    transform:none;
+}
+
 /* ===== MODAL PREMIUM ===== */
 
 .modal-content{
@@ -799,11 +833,11 @@ textarea.form-control-premium{
 
 .btn-save-form{
 
-    border:1px solid #22c55e;
+    border:1px solid #279c66;
 
     background:#fff;
 
-    color:#22c55e;
+    color:#279c66;
 
     border-radius:8px;
 
@@ -822,7 +856,7 @@ textarea.form-control-premium{
 
     background:#f0fdf4;
 
-    color:#16a34a;
+    color:#1a6843;
 
     transform:none;
 }
@@ -1077,6 +1111,23 @@ textarea.form-control-premium{
     color:#dc2626;
 
     border:1px solid #fecaca;
+
+    padding:5px 10px;
+
+    border-radius:8px;
+
+    font-size:13px;
+
+    font-weight:600;
+}
+
+.badge-stock-ok{
+
+    background:#f0fdf4;
+
+    color:#16a34a;
+
+    border:1px solid #faf6f6;
 
     padding:5px 10px;
 
