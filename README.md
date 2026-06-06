@@ -3,19 +3,19 @@ inventario-abarrotes/
 ├── app/
 │   │
 │   ├── routes/
-│   │   └── productos.py
-│   │   └── ventas.py
-│   │   └── reportes.py
-│   │   └── movimientos.py
-│   │   └── categorias.py
+│   │   ├── productos.py
+│   │   ├── ventas.py
+│   │   ├── reportes.py
+│   │   ├── movimientos.py
+│   │   ├── categorias.py
 │   │   └── proveedores.py
 │   │
 │   ├── services/
-│   │   └── producto_service.py
-│   │   └── venta_service.py
-│   │   └── reporte_service.py
-│   │   └── movimiento_service.py
-│   │   └── categoria_service.py
+│   │   ├── producto_service.py
+│   │   ├── venta_service.py
+│   │   ├── reporte_service.py
+│   │   ├── movimiento_service.py
+│   │   ├── categoria_service.py
 │   │   └── proveedor_service.py
 │   │
 │   ├── database/
@@ -24,30 +24,32 @@ inventario-abarrotes/
 │   ├── templates/
 │   │   ├── base.html
 │   │   ├── home.html
-│   │   └── productos/
+│   │   ├── productos/
 │   │   │   ├── listar.html
 │   │   │   ├── crear.html
-│   │   │   └── editar.html
-│   │   └── ventas/
-│   │   │   └── pos.html
-│   │   └── reportes/
-│   │       └── dashboard.html
-│   │   └── movimientos/
-│   │       └── listar.html
-│   │   └── categorias/
-│   │       └── listar.html
+│   │   │   ├── editar.html
+│   │   │   └── pruebas.html
+│   │   ├── ventas/
+│   │   │   ├── pos.html
+│   │   │   ├── ticket.html
+│   │   │   └── historial.html
+│   │   ├── reportes/
+│   │   │   └── dashboard.html
+│   │   ├── movimientos/
+│   │   │   └── listar.html
+│   │   ├── categorias/
+│   │   │   └── listar.html
 │   │   └── proveedores/
 │   │       └── listar.html
 │   │
 │   ├── static/
 │   │   ├── css/
 │   │   │   └── style.css
-│   │   │
 │   │   └── js/
 │   │
 │   └── __init__.py
 │
 ├── config.py
 ├── run.py
-├── requirements.txt
+├── .gitignore
 └── README.md

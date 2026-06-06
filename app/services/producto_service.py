@@ -1,7 +1,8 @@
 from app.database.connection import get_connection
 
 
-def obtener_productos():
+def obtener_productos(busqueda=''):
+
     conn = get_connection()
     cursor = conn.cursor(dictionary=True)
 
@@ -20,10 +21,35 @@ def obtener_productos():
         LEFT JOIN proveedores pr
             ON p.id_proveedor = pr.id_proveedor
         WHERE p.activo = TRUE
+    """
+
+    valores = []
+
+    if busqueda:
+
+        query += """
+            AND (
+                p.nombre LIKE %s
+                OR p.codigo_barras LIKE %s
+            )
+        """
+
+        termino = f"%{busqueda}%"
+
+        valores.extend([
+            termino,
+            termino
+        ])
+
+    query += """
         ORDER BY p.nombre
     """
 
-    cursor.execute(query)
+    cursor.execute(
+        query,
+        valores
+    )
+
     productos = cursor.fetchall()
 
     cursor.close()

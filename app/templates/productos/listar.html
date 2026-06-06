@@ -5,8 +5,8 @@ Productos
 {% endblock %}
 
 {% block header %}
-<i class="bi bi-box-seam-fill"></i>
-Gestión de Productos
+<i class="bi bi-box-seam"></i>
+Catálogo de Productos
 {% endblock %}
 
 
@@ -18,17 +18,42 @@ Gestión de Productos
 
     <div class="module-toolbar">
 
-        <div class="module-title">
+        <form method="GET" class="mb-4">
 
-            <i class="bi bi-box-seam"></i>
+            <div class="input-group">
 
-            <h4>
+                <span class="input-group-text">
 
-                Catálogo de Productos
+                    <i class="bi bi-search"></i>
 
-            </h4>
+                </span>
 
-        </div>
+                <input
+                    type="text"
+                    name="busqueda"
+                    class="form-control"
+                    placeholder="Buscar producto..."
+                    value="{{ busqueda }}">
+
+                <button
+                    type="submit"
+                    class="btn btn-primary">
+
+                    Buscar
+
+                </button>
+
+                <a
+                    href="{{ url_for('productos.listar_productos') }}"
+                    class="btn btn-secondary">
+
+                    Limpiar
+
+                </a>
+
+            </div>
+
+        </form>
 
         <a
             href="{{ url_for('productos.crear_producto') }}"
@@ -46,7 +71,7 @@ Gestión de Productos
 
     <div class="table-responsive">
 
-        <table class="table product-table align-middle">
+        <table class="table table-premium align-middle">
 
             <thead>
                 <tr>

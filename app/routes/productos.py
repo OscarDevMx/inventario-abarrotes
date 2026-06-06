@@ -26,12 +26,21 @@ productos_bp = Blueprint(
 @productos_bp.route('/')
 def listar_productos():
 
-    productos = obtener_productos()
+    busqueda = request.args.get(
+        'busqueda',
+        ''
+    )
+
+    productos = obtener_productos(
+        busqueda
+    )
 
     return render_template(
         'productos/listar.html',
-        productos=productos
+        productos=productos,
+        busqueda=busqueda
     )
+
 
 # Ruta para mostrar el formulario de creación de producto
 @productos_bp.route('/crear')
