@@ -1,7 +1,7 @@
 from app.database.connection import get_connection
 
 
-def obtener_productos(busqueda=''):
+def obtener_productos(busqueda='', categoria=''):
 
     conn = get_connection()
     cursor = conn.cursor(dictionary=True)
@@ -25,6 +25,16 @@ def obtener_productos(busqueda=''):
     """
 
     valores = []
+
+    if categoria:
+
+        query += """
+            AND p.id_categoria = %s
+        """
+
+        valores.append(
+            categoria
+        )
 
     if busqueda:
 

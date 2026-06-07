@@ -51,6 +51,30 @@ Catálogo de Productos
 
                 </a>
 
+                <select
+                    name="categoria"
+                    class="form-select">
+
+                    <option value="">
+                        Todas las categorías
+                    </option>
+
+                    {% for c in categorias %}
+
+                        <option
+                            value="{{ c.id_categoria }}"
+                            {% if categoria == c.id_categoria|string %}
+                                selected
+                            {% endif %}>
+
+                            {{ c.nombre_categoria }}
+
+                        </option>
+
+                    {% endfor %}
+
+                </select>
+
             </div>
 
         </form>

@@ -31,14 +31,24 @@ def listar_productos():
         ''
     )
 
-    productos = obtener_productos(
-        busqueda
+    categoria = request.args.get(
+        'categoria',
+        ''
     )
+
+    productos = obtener_productos(
+        busqueda,
+        categoria
+    )
+
+    categorias = obtener_categorias()
 
     return render_template(
         'productos/listar.html',
         productos=productos,
-        busqueda=busqueda
+        categorias=categorias,
+        busqueda=busqueda,
+        categoria=categoria
     )
 
 
