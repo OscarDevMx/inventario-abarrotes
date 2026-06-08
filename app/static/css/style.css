@@ -1533,3 +1533,20 @@ textarea.form-control-premium{
     background: #fee2e2;
     color: #991b1b;
 }
+
+/* FILTROS PRODUCTOS */
+   
+.products-filters{
+    display:flex;
+    gap:12px;
+    align-items:center;
+    flex-wrap:wrap;
+}
+
+.products-filters input{
+    min-width:280px;
+}
+
+.products-filters select{
+    min-width:220px;
+}

@@ -1,7 +1,7 @@
 from app.database.connection import get_connection
 
 
-def obtener_productos(busqueda='', categoria=''):
+def obtener_productos(busqueda='', categoria='', estado=''):
 
     conn = get_connection()
     cursor = conn.cursor(dictionary=True)
@@ -15,13 +15,14 @@ def obtener_productos(busqueda='', categoria=''):
             pr.nombre AS proveedor,
             p.precio,
             p.stock_actual,
-            p.stock_minimo
+            p.stock_minimo,
+            p.activo
         FROM productos p
         JOIN categorias c
             ON p.id_categoria = c.id_categoria
         LEFT JOIN proveedores pr
             ON p.id_proveedor = pr.id_proveedor
-        WHERE p.activo = TRUE
+        WHERE 1=1
     """
 
     valores = []
@@ -35,6 +36,18 @@ def obtener_productos(busqueda='', categoria=''):
         valores.append(
             categoria
         )
+
+    if estado == 'activo':
+
+        query += """
+            AND p.activo = TRUE
+        """
+
+    elif estado == 'inactivo':
+
+        query += """
+            AND p.activo = FALSE
+        """
 
     if busqueda:
 
@@ -374,3 +387,63 @@ def eliminar_producto(id_producto):
 
     cursor.close()
     conn.close()
+
+
+def activar_producto(id_producto):
+
+    conn = get_connection()
+
+    cursor = conn.cursor()
+
+    cursor.execute(
+        """
+        UPDATE productos
+        SET activo = TRUE
+        WHERE id_producto = %s
+        """,
+        (id_producto,)
+    )
+
+    conn.commit()
+
+    cursor.close()
+    conn.close()
+
+def obtener_resumen_productos():
+
+    conn = get_connection()
+    cursor = conn.cursor(dictionary=True)
+
+    query = """
+        SELECT
+            COUNT(*) AS total_productos,
+
+            SUM(
+                CASE
+                    WHEN stock_actual = 0
+                    THEN 1
+                    ELSE 0
+                END
+            ) AS agotados,
+
+            SUM(
+                CASE
+                    WHEN stock_actual > 0
+                    AND stock_actual <= stock_minimo
+                    THEN 1
+                    ELSE 0
+                END
+            ) AS stock_bajo
+
+        FROM productos
+        WHERE activo = TRUE
+    """
+
+    cursor.execute(query)
+
+    resumen = cursor.fetchone()
+
+    cursor.close()
+    conn.close()
+
+    return resumen

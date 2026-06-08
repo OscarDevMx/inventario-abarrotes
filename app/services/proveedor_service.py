@@ -138,9 +138,7 @@ def desactivar_proveedor(
     conn.close()
 
 
-def activar_proveedor(
-    id_proveedor
-):
+def activar_proveedor(id_proveedor):
 
     conn = get_connection()
 

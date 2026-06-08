@@ -3,7 +3,8 @@ from flask import (
     render_template,
     request,
     redirect,
-    flash
+    flash,
+    url_for
 )
 from app.services.producto_service import (
     obtener_productos,
@@ -12,7 +13,9 @@ from app.services.producto_service import (
     insertar_producto,
     obtener_producto_por_id,
     actualizar_producto,
-    eliminar_producto
+    eliminar_producto,
+    obtener_resumen_productos,
+    activar_producto
 )
 
 
@@ -36,19 +39,31 @@ def listar_productos():
         ''
     )
 
-    productos = obtener_productos(
-        busqueda,
-        categoria
+    estado = request.args.get(
+        'estado',
+        ''
     )
 
+    productos = obtener_productos(
+        busqueda,
+        categoria,
+        estado
+    )
+    
+
+
     categorias = obtener_categorias()
+
+    resumen = obtener_resumen_productos()
 
     return render_template(
         'productos/listar.html',
         productos=productos,
         categorias=categorias,
         busqueda=busqueda,
-        categoria=categoria
+        categoria=categoria,
+        estado=estado,
+        resumen=resumen
     )
 
 
@@ -127,3 +142,31 @@ def eliminar_producto_route(id_producto):
     flash(f'Producto "{obtener_producto_por_id(id_producto)["nombre"]}" eliminado exitosamente', 'danger')
 
     return redirect('/productos/')
+
+
+
+@productos_bp.route(
+    '/activar/<int:id_producto>'
+)
+def activar_producto_route(
+    id_producto
+):
+
+    producto = obtener_producto_por_id(
+        id_producto
+    )
+
+    activar_producto(
+        id_producto
+    )
+
+    flash(
+        f'Producto "{producto["nombre"]}" activado correctamente',
+        'success'
+    )
+
+    return redirect(
+        url_for(
+            'productos.listar_productos'
+        )
+    )
