@@ -1102,41 +1102,6 @@ textarea.form-control-premium{
     background:#f8fafc;
 }
 
-/* Badge */
-
-.badge-stock-low{
-
-    background:#fef2f2;
-
-    color:#dc2626;
-
-    border:1px solid #fecaca;
-
-    padding:5px 10px;
-
-    border-radius:8px;
-
-    font-size:13px;
-
-    font-weight:600;
-}
-
-.badge-stock-ok{
-
-    background:#f0fdf4;
-
-    color:#16a34a;
-
-    border:1px solid #faf6f6;
-
-    padding:5px 10px;
-
-    border-radius:8px;
-
-    font-size:13px;
-
-    font-weight:600;
-}
 
 /* ===== POS ===== */
 
@@ -1534,19 +1499,129 @@ textarea.form-control-premium{
     color: #991b1b;
 }
 
+
+.badge-stock-low{
+
+    background:#fef2f2;
+
+    color:#dc2626;
+
+    border:1px solid #fecaca;
+
+    padding:5px 10px;
+
+    border-radius:8px;
+
+    font-size:13px;
+
+    font-weight:600;
+}
+
+.badge-stock-ok{
+
+    background:#f0fdf4;
+
+    color:#16a34a;
+
+    border:1px solid #faf6f6;
+
+    padding:5px 10px;
+
+    border-radius:8px;
+
+    font-size:13px;
+
+    font-weight:600;
+}
+
+.badge-status{
+
+    background:#f8fafc;
+
+    color:#64748b;
+
+    border:1px solid #e2e8f0;
+
+    padding:5px 10px;
+
+    border-radius:8px;
+
+    font-size:13px;
+
+    font-weight:600;
+}
+
 /* FILTROS PRODUCTOS */
    
 .products-filters{
+
     display:flex;
-    gap:12px;
+
     align-items:center;
-    flex-wrap:wrap;
+
+    gap:12px;
+
+    flex-wrap:nowrap;
+
+    width:100%;
 }
 
 .products-filters input{
-    min-width:280px;
+
+    flex:1;
+
+    min-width:320px;
 }
 
 .products-filters select{
-    min-width:220px;
+
+    width:220px;
+
+    flex-shrink:0;
+}
+
+.products-table-header{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    margin-bottom:20px;
+
+    padding-bottom:12px;
+
+    border-bottom:1px solid #e9ecef;
+}
+
+.module-card + .module-card{
+
+    margin-top:24px;
+}
+
+.products-title{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:10px;
+}
+
+.products-counter{
+
+    background:#f1f5f9;
+
+    color:#475569;
+
+    border:1px solid #e2e8f0;
+
+    border-radius:999px;
+
+    padding:4px 10px;
+
+    font-size:12px;
+
+    font-weight:600;
 }

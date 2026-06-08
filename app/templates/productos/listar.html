@@ -99,6 +99,30 @@ Catálogo de Productos
 
         </form>
 
+    </div>
+</div>
+
+<div class="module-card">
+
+    <!-- Encabezado de tabla -->
+    <div class="products-table-header">
+
+        <div class="products-title">
+
+            <h5 class="mb-0">
+
+                Productos
+
+            </h5>
+
+            <span class="products-counter">
+
+                {{ productos|length }} registros
+
+            </span>
+
+        </div>
+
         <a
             href="{{ url_for('productos.crear_producto') }}"
             class="btn btn-new">
@@ -112,21 +136,39 @@ Catálogo de Productos
     </div>
 
     <!-- Tabla -->
-
     <div class="table-responsive">
 
         <table class="table table-premium align-middle">
 
             <thead>
                 <tr>
-                    <th>Barcode</th>
-                    <th>Producto</th>
-                    <th>Categoría</th>
-                    <th>Proveedor</th>
-                    <th>Precio</th>
-                    <th>Stock</th>
-                    <th>Estado</th>
-                    <th>Acciones</th>
+                    <th>Código
+                        <i class="bi bi-caret-down-fill text-muted"></i>
+                    </th>
+                    <th>Producto
+                        <i class="bi bi-caret-down-fill text-muted"></i>
+                    </th>
+                    <th>Categoría
+                        <i class="bi bi-caret-down-fill text-muted"></i>
+                    </th>
+                    <th>Proveedor
+                        <i class="bi bi-caret-down-fill text-muted"></i>
+                    </th>
+                    <th>Precio
+                        <i class="bi bi-caret-down-fill text-muted"></i>
+                    </th>
+                    <th class="text-center">
+                        Stock
+                        <i class="bi bi-caret-down-fill text-muted"></i>
+                    </th>
+                    <th class="text-center">
+                        Estado
+                        <i class="bi bi-caret-down-fill text-muted"></i>
+                    </th>
+                    <th>
+                        Acciones
+                        <i class="bi bi-caret-down-fill text-muted"></i>
+                    </th>
                 </tr>
             </thead>
 
@@ -135,12 +177,18 @@ Catálogo de Productos
                 {% for p in productos %}
 
                 <tr>
-                    <td>{{ p.codigo_barras }}</td>
+                    <td>
+                        <i class="bi bi-upc-scan text-muted me-2"></i>
+                        {{ p.codigo_barras }}
+                    </td>
                     <td>{{ p.nombre }}</td>
                     <td>{{ p.nombre_categoria }}</td>
                     <td>{{ p.proveedor }}</td>
-                    <td>${{ p.precio }}</td>
                     <td>
+                        <i class="bi bi-cash-coin me-2 text-muted"></i>
+                        ${{ p.precio }}
+                    </td>
+                    <td class="text-center">
 
                         {% if p.stock_actual == 0 and p.activo %}
 
@@ -176,11 +224,11 @@ Catálogo de Productos
                         {% endif %}
 
                     </td>
-                    <td>
+                    <td class="text-center">
 
                         {% if p.activo %}
 
-                            <span class="badge-stock-ok">
+                            <span class="badge-status">
 
                                 Activo
 
@@ -188,51 +236,46 @@ Catálogo de Productos
 
                         {% else %}
 
-                            <span class="badge-stock-low">
+                            <span class="badge-status">
 
                                 Inactivo
 
                             </span>
 
                         {% endif %}
+
                     </td>
-                    <td>
+                    <td class="text-center">
                         <div class="action-buttons">
-                            {% if p.activo %}
-                                <a
-                                    href="{{ url_for('productos.editar_producto', id_producto=p.id_producto) }}"
-                                    class="btn btn-edit">
+                            {% if p.activo %}                                
+                                    <a
+                                        href="{{ url_for('productos.editar_producto', id_producto=p.id_producto) }}"
+                                        class="btn btn-edit">
 
-                                    <i class="bi bi-pencil"></i>
+                                        <i class="bi bi-pencil"></i>
+                                    </a>
 
-                                    Editar
-                                </a>
+                                    <button
+                                        class="btn btn-delete"
+                                        data-bs-toggle="modal"
+                                        data-bs-target="#deleteModal{{ p.id_producto }}">
 
-                                <button
-                                    class="btn btn-delete"
-                                    data-bs-toggle="modal"
-                                    data-bs-target="#deleteModal{{ p.id_producto }}">
-
-                                    <i class="bi bi-trash"></i>
-
-                                    Eliminar
-                                </button>
+                                        <i class="bi bi-trash"></i>
+                                    </button>
                             {% else %}
-                                <a
-                                    href="{{ url_for(
-                                        'productos.activar_producto_route',
-                                        id_producto=p.id_producto
-                                    ) }}"
-                                    class="btn btn-active">
+                                    <a
+                                        href="{{ url_for(
+                                            'productos.activar_producto_route',
+                                            id_producto=p.id_producto
+                                        ) }}"
+                                        class="btn btn-active">
 
-                                    <i class="bi bi-check-circle"></i>
+                                        <i class="bi bi-check-circle"></i>
 
-                                    Activar
+                                        Activar
 
-                                </a>
-
+                                    </a>
                             {% endif %}
-
                         </div>
                     </td>
 
