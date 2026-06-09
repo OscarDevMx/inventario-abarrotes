@@ -1,2 +1,8 @@
+import os
+
 class Config:
-    SECRET_KEY = 'dev-key-inventario'
+
+    SECRET_KEY = os.getenv(
+        "SECRET_KEY",
+        "dev-key-inventario"
+    )
