@@ -1,3 +1,5 @@
+import re
+
 from flask import (
     Blueprint,
     render_template,
@@ -12,6 +14,7 @@ from app.services.producto_service import (
     obtener_proveedores,
     insertar_producto,
     obtener_producto_por_id,
+    obtener_producto_por_codigo,
     actualizar_producto,
     eliminar_producto,
     obtener_resumen_productos,
@@ -24,6 +27,58 @@ productos_bp = Blueprint(
     __name__,
     url_prefix='/productos'
 )
+
+def validar_producto(data):
+
+    codigo = data['codigo_barras'].strip()
+    nombre = data['nombre'].strip()
+
+    try:
+        precio = float(data['precio'])
+        stock_actual = int(data['stock_actual'])
+        stock_minimo = int(data['stock_minimo'])
+
+    except ValueError:
+
+        return "Datos numéricos inválidos"
+
+    # Código barras
+
+    if not re.fullmatch(r'\d{1,12}', codigo):
+
+        return "El código de barras debe contener únicamente números y máximo 12 dígitos"
+
+    # Nombre
+
+    if len(nombre) == 0:
+
+        return "El nombre es obligatorio"
+
+    if len(nombre) > 50:
+
+        return "El nombre no puede exceder 50 caracteres"
+
+    # Precio
+
+    if precio <= 0 or precio > 999:
+
+        return "El precio debe estar entre 0.01 y 999.00"
+
+    # Stock
+
+    if stock_actual < 0 or stock_actual > 9999:
+
+        return "El stock actual debe estar entre 0 y 9999"
+
+    # Stock mínimo
+
+    if stock_minimo < 0 or stock_minimo > 9999:
+
+        return "El stock mínimo debe estar entre 0 y 9999"
+
+    return None
+
+
 
 # Ruta para listar los productos
 @productos_bp.route('/')
@@ -95,6 +150,28 @@ def guardar_producto():
         'id_proveedor': request.form['id_proveedor']
     }
 
+    error = validar_producto(data)
+
+    if error:
+
+        flash(error, 'danger')
+
+        return redirect(
+            url_for('productos.crear_producto')
+        )
+    
+    producto_existente = obtener_producto_por_codigo(
+        data['codigo_barras']
+    )
+
+    if producto_existente:
+
+        flash(f'Ya existe un producto con ese código de barras: "{data['codigo_barras']}"', 'danger')
+
+        return redirect(
+            url_for('productos.crear_producto')
+        )
+
     insertar_producto(data)
     flash(f'Producto "{data["nombre"]}" creado correctamente','success')
     
@@ -129,6 +206,38 @@ def actualizar_producto_route(id_producto):
         'id_categoria': request.form['id_categoria'],
         'id_proveedor': request.form['id_proveedor']
     }
+
+    error = validar_producto(data)
+
+    if error:
+
+        flash(error, 'danger')
+
+        return redirect(
+            url_for(
+                'productos.editar_producto',
+                id_producto=id_producto
+            )
+        )
+    
+    producto_existente = obtener_producto_por_codigo(
+        data['codigo_barras']
+    )
+
+    if (
+        producto_existente
+        and
+        producto_existente['id_producto'] != id_producto
+    ):
+
+        flash(f'Ya existe un producto con ese código de barras: "{data['codigo_barras']}"', 'danger')
+
+        return redirect(
+            url_for(
+                'productos.editar_producto',
+                id_producto=id_producto
+            )
+        )
 
     actualizar_producto(id_producto, data)
     flash(f'Producto "{data["nombre"]}" actualizado correctamente', 'primary')

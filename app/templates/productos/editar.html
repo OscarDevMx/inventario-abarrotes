@@ -46,6 +46,9 @@ Editar Producto
                     name="codigo_barras"
                     value="{{ producto.codigo_barras }}"
                     class="form-control form-control-premium"
+                    maxlength="12"
+                    pattern="[0-9]{1,12}"
+                    inputmode="numeric"
                     required>
 
             </div>
@@ -63,6 +66,7 @@ Editar Producto
                 <input
                     type="text"
                     name="nombre"
+                    maxlength="50"
                     value="{{ producto.nombre }}"
                     class="form-control form-control-premium"
                     required>
@@ -99,7 +103,9 @@ Editar Producto
                 <input
                     type="number"
                     step="0.01"
-                    min="0"
+                    min="0.01"
+                    max="999"
+                    maxlength="3"
                     name="precio"
                     value="{{ producto.precio }}"
                     class="form-control form-control-premium"
@@ -120,6 +126,8 @@ Editar Producto
                 <input
                     type="number"
                     min="0"
+                    max="9999"
+                    maxlength="4"
                     name="stock_actual"
                     value="{{ producto.stock_actual }}"
                     class="form-control form-control-premium"
@@ -140,6 +148,8 @@ Editar Producto
                 <input
                     type="number"
                     min="0"
+                    max="9999"
+                    maxlength="4"
                     name="stock_minimo"
                     value="{{ producto.stock_minimo }}"
                     class="form-control form-control-premium"

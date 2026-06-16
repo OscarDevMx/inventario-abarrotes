@@ -33,7 +33,7 @@ def create_app():
         conexion = get_connection()
         cursor = conexion.cursor(dictionary=True)
 
-        # KPI Productos
+        # KPI Productos Activos
 
         cursor.execute("""
 
@@ -43,7 +43,7 @@ def create_app():
 
         """)
 
-        total_productos = cursor.fetchone()['total']
+        productos_activos = cursor.fetchone()['total']
 
         # KPI Stock Bajo
 
@@ -52,35 +52,39 @@ def create_app():
             SELECT COUNT(*) AS total
             FROM productos
             WHERE activo = 1
+            AND stock_actual > 0
             AND stock_actual <= stock_minimo
 
         """)
 
         stock_bajo = cursor.fetchone()['total']
 
-        # KPI Categorias
+        # KPI Stock Agotado
 
         cursor.execute("""
 
             SELECT COUNT(*) AS total
-            FROM categorias
+            FROM productos
+            WHERE activo = 1
+            AND stock_actual = 0
 
         """)
 
-        total_categorias = cursor.fetchone()['total']
+        stock_agotado = cursor.fetchone()['total']
 
-        # KPI Proveedores
+        # KPI Productos Inactivos
 
         cursor.execute("""
 
             SELECT COUNT(*) AS total
-            FROM proveedores
+            FROM productos
+            WHERE activo = 0
 
         """)
 
-        total_proveedores = cursor.fetchone()['total']
+        productos_inactivos = cursor.fetchone()['total']
 
-        # Tabla stock bajo
+        # Tabla Stock Bajo
 
         cursor.execute("""
 
@@ -90,6 +94,7 @@ def create_app():
                 stock_minimo
             FROM productos
             WHERE activo = 1
+            AND stock_actual > 0
             AND stock_actual <= stock_minimo
             ORDER BY stock_actual ASC
             LIMIT 10
@@ -98,6 +103,23 @@ def create_app():
 
         productos_stock_bajo = cursor.fetchall()
 
+        # Tabla Stock Agotado
+
+        cursor.execute("""
+
+            SELECT
+                nombre,
+                stock_actual
+            FROM productos
+            WHERE activo = 1
+            AND stock_actual = 0
+            ORDER BY nombre
+            LIMIT 10
+
+        """)
+
+        productos_agotados = cursor.fetchall()
+
         cursor.close()
         conexion.close()
 
@@ -105,12 +127,12 @@ def create_app():
 
             'home.html',
 
-            total_productos=total_productos,
+            productos_activos=productos_activos,
             stock_bajo=stock_bajo,
-            total_categorias=total_categorias,
-            total_proveedores=total_proveedores,
-            productos_stock_bajo=productos_stock_bajo
-
+            stock_agotado=stock_agotado,
+            productos_inactivos=productos_inactivos,
+            productos_stock_bajo=productos_stock_bajo,
+            productos_agotados=productos_agotados
         )
 
     return app

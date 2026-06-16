@@ -981,6 +981,16 @@ textarea.form-control-premium{
     color: white;
 }
 
+.kpi-yellow{ 
+    background: linear-gradient(
+        135deg,
+        #ffc107,
+        #ffd966
+    ); 
+    color: 
+    #333 !important; 
+}
+
 /* Texto */
 
 .kpi-label{
@@ -1499,8 +1509,24 @@ textarea.form-control-premium{
     color: #991b1b;
 }
 
-
 .badge-stock-low{
+
+    background:#f5f59a;
+
+    color:#3b3b32;
+
+    border:1px solid #ecf54d;
+
+    padding:5px 10px;
+
+    border-radius:8px;
+
+    font-size:13px;
+
+    font-weight:600;
+}
+
+.badge-stock-agotado{
 
     background:#fef2f2;
 

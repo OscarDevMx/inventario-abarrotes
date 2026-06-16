@@ -15,7 +15,7 @@ Dashboard
 
 <div class="dashboard-grid">
 
-    <!-- Productos -->
+    <!-- Productos Activos -->
 
     <div class="kpi-card kpi-blue">
 
@@ -23,13 +23,13 @@ Dashboard
 
             <span class="kpi-label">
 
-                Productos
+                Productos Activos
 
             </span>
 
             <h3>
 
-                {{ total_productos }}
+                {{ productos_activos }}
 
             </h3>
 
@@ -39,9 +39,9 @@ Dashboard
 
     </div>
 
-    <!-- Stock bajo -->
+    <!-- Stock Bajo -->
 
-    <div class="kpi-card kpi-red">
+    <div class="kpi-card kpi-yellow">
 
         <div>
 
@@ -63,31 +63,31 @@ Dashboard
 
     </div>
 
-    <!-- Categorias -->
+    <!-- Stock Agotado -->
 
-    <div class="kpi-card kpi-green">
+    <div class="kpi-card kpi-red">
 
         <div>
 
             <span class="kpi-label">
 
-                Categorías
+                Stock Agotado
 
             </span>
 
             <h3>
 
-                {{ total_categorias }}
+                {{ stock_agotado }}
 
             </h3>
 
         </div>
 
-        <i class="bi bi-tags kpi-icon"></i>
+        <i class="bi bi-x-octagon kpi-icon"></i>
 
     </div>
 
-    <!-- Proveedores -->
+    <!-- Productos Inactivos -->
 
     <div class="kpi-card kpi-purple">
 
@@ -95,19 +95,19 @@ Dashboard
 
             <span class="kpi-label">
 
-                Proveedores
+                Productos Inactivos
 
             </span>
 
             <h3>
 
-                {{ total_proveedores }}
+                {{ productos_inactivos }}
 
             </h3>
 
         </div>
 
-        <i class="bi bi-truck kpi-icon"></i>
+        <i class="bi bi-archive kpi-icon"></i>
 
     </div>
 
@@ -147,9 +147,15 @@ Dashboard
 
                 <tr>
 
-                    <th>Producto</th>
-                    <th>Stock</th>
-                    <th>Mínimo</th>
+                    <th>Producto
+                        <i class="bi bi-caret-down-fill text-muted"></i>
+                    </th>
+                    <th>Stock
+                        <i class="bi bi-caret-down-fill text-muted"></i>
+                    </th>
+                    <th>Mínimo
+                        <i class="bi bi-caret-down-fill text-muted"></i>
+                    </th>
 
                 </tr>
 
@@ -165,7 +171,7 @@ Dashboard
 
                     <td>
 
-                        <span class="badge-stock-low">
+                        <span class="badge-status">
 
                             {{ p.stock_actual }}
 
@@ -174,6 +180,82 @@ Dashboard
                     </td>
 
                     <td>{{ p.stock_minimo }}</td>
+
+                </tr>
+
+                {% endfor %}
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</div>
+
+<!-- STOCK AGOTADO -->
+
+<div class="dashboard-table-card mt-4">
+
+    <div class="table-header-premium">
+
+        <div>
+
+            <h5>
+
+                <i class="bi bi-x-octagon"></i>
+
+                Productos Agotados
+
+            </h5>
+
+            <small>
+
+                Productos sin existencias
+
+            </small>
+
+        </div>
+
+    </div>
+
+    <div class="table-responsive">
+
+        <table class="table table-premium align-middle">
+
+            <thead>
+
+                <tr>
+
+                    <th>Producto
+                        <i class="bi bi-caret-down-fill text-muted"></i>
+                    </th>
+                    
+                    <th>Stock
+                        <i class="bi bi-caret-down-fill text-muted"></i>
+                    </th>
+
+                </tr>
+
+            </thead>
+
+            <tbody>
+
+                {% for p in productos_agotados %}
+
+                <tr>
+
+                    <td>{{ p.nombre }}</td>
+
+                    <td>
+
+                        <span class="badge-status">
+
+                            {{ p.stock_actual }}
+
+                        </span>
+
+                    </td>
 
                 </tr>
 

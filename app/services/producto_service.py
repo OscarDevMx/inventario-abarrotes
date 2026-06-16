@@ -118,6 +118,7 @@ def obtener_proveedores():
 
     return data
 
+# Función para insertar un nuevo producto
 def insertar_producto(data):
 
     conn = get_connection()
@@ -209,6 +210,29 @@ def obtener_producto_por_id(id_producto):
     """
 
     cursor.execute(query, (id_producto,))
+    producto = cursor.fetchone()
+
+    cursor.close()
+    conn.close()
+
+    return producto
+
+def obtener_producto_por_codigo(codigo_barras):
+
+    conn = get_connection()
+    cursor = conn.cursor(dictionary=True)
+
+    query = """
+        SELECT id_producto
+        FROM productos
+        WHERE codigo_barras = %s
+    """
+
+    cursor.execute(
+        query,
+        (codigo_barras,)
+    )
+
     producto = cursor.fetchone()
 
     cursor.close()
