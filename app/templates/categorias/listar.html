@@ -53,13 +53,21 @@ Gestión de Categorías
 
                 <tr>
 
-                    <th>Categoría</th>
+                    <th>Categoría
+                        <i class="bi bi-caret-down-fill text-muted"></i>
+                    </th>
 
-                    <th>Estado</th>
+                    <th>Estado
+                        <i class="bi bi-caret-down-fill text-muted"></i>
+                    </th>
 
-                    <th>Fecha Creación</th>
+                    <th>Fecha Creación
+                        <i class="bi bi-caret-down-fill text-muted"></i>
+                    </th>
 
-                    <th>Acciones</th>
+                    <th>Acciones
+                        <i class="bi bi-caret-down-fill text-muted"></i>
+                    </th>
 
                 </tr>
 
@@ -80,9 +88,8 @@ Gestión de Categorías
                     <td>
 
                         {% if c.activo %}
-
-                        <span
-                            class="badge-stock-ok">
+                       
+                        <span class="badge-status">
 
                             Activa
 
@@ -90,8 +97,7 @@ Gestión de Categorías
 
                         {% else %}
 
-                        <span
-                            class="badge-stock-low">
+                        <span class="badge-status">
 
                             Inactiva
 
@@ -172,6 +178,7 @@ Gestión de Categorías
                                                     <input
                                                         type="text"
                                                         name="nombre_categoria"
+                                                        maxlength="50"
                                                         class="form-control"
                                                         value="{{ c.nombre_categoria }}"
                                                         required>
@@ -390,6 +397,7 @@ Gestión de Categorías
                     <input
                         type="text"
                         name="nombre_categoria"
+                        maxlength="50"
                         class="form-control"
                         required>
 

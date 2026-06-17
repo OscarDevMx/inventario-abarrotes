@@ -80,6 +80,31 @@ def actualizar_categoria(
     cursor.close()
     conn.close()
 
+# Función para obtener una categoría por su nombre
+def obtener_categoria_por_nombre(nombre_categoria):
+
+    conn = get_connection()
+
+    cursor = conn.cursor(dictionary=True, buffered=True)
+
+    cursor.execute(
+        """
+        SELECT
+            id_categoria
+        FROM categorias
+        WHERE LOWER(nombre_categoria) = LOWER(%s)
+        """,
+        (nombre_categoria,)
+    )
+
+    categoria = cursor.fetchone()
+
+    cursor.close()
+    conn.close()
+
+    return categoria
+
+
 # Función para eliminar una categoría (marcar como inactiva)
 def desactivar_categoria(id_categoria):
 

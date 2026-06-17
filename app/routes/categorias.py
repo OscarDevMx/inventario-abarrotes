@@ -13,7 +13,8 @@ from app.services.categoria_service import (
     actualizar_categoria,
     desactivar_categoria,
     obtener_categoria_por_id,
-    activar_categoria
+    activar_categoria,
+    obtener_categoria_por_nombre
 )
 
 categorias_bp = Blueprint(
@@ -23,6 +24,23 @@ categorias_bp = Blueprint(
 )
 
 
+# Función para validar el nombre de la categoría
+def validar_categoria(nombre_categoria):
+
+    nombre_categoria = nombre_categoria.strip()
+
+    if len(nombre_categoria) == 0:
+
+        return "El nombre de la categoría es obligatorio"
+
+    if len(nombre_categoria) > 50:
+
+        return "La categoría no puede exceder 50 caracteres"
+
+    return None
+
+
+# Ruta para listar todas las categorías
 @categorias_bp.route('/')
 def listar_categorias():
 
@@ -33,13 +51,49 @@ def listar_categorias():
         categorias=categorias
     )
 
-
+# Ruta para crear una nueva categoría
 @categorias_bp.route('/crear', methods=['POST'])
 def crear_categoria():
 
     nombre_categoria = request.form.get(
         'nombre_categoria'
     )
+
+    error = validar_categoria(
+        nombre_categoria
+    )
+
+    if error:
+
+        flash(
+            error,
+            'danger'
+        )
+
+        return redirect(
+            url_for(
+                'categorias.listar_categorias'
+            )
+        )
+
+    categoria_existente = (
+        obtener_categoria_por_nombre(
+            nombre_categoria
+        )
+    )
+
+    if categoria_existente:
+
+        flash(
+            'Ya existe una categoría con ese nombre',
+            'danger'
+        )
+
+        return redirect(
+            url_for(
+                'categorias.listar_categorias'
+            )
+        )
 
     insertar_categoria(
         nombre_categoria
@@ -57,6 +111,7 @@ def crear_categoria():
     )
 
 
+# Ruta para editar una categoría existente
 @categorias_bp.route('/editar/<int:id_categoria>',
                      methods=['POST'])
 def editar_categoria(id_categoria):
@@ -64,6 +119,46 @@ def editar_categoria(id_categoria):
     nombre_categoria = request.form.get(
         'nombre_categoria'
     )
+
+    error = validar_categoria(
+        nombre_categoria
+    )
+
+    if error:
+
+        flash(
+            error,
+            'danger'
+        )
+
+        return redirect(
+            url_for(
+                'categorias.listar_categorias'
+            )
+        )
+
+    categoria_existente = (
+        obtener_categoria_por_nombre(
+            nombre_categoria
+        )
+    )
+
+    if (
+        categoria_existente
+        and
+        categoria_existente['id_categoria'] != id_categoria
+    ):
+
+        flash(
+            'Ya existe una categoría con ese nombre',
+            'danger'
+        )
+
+        return redirect(
+            url_for(
+                'categorias.listar_categorias'
+            )
+        )
 
     actualizar_categoria(
         id_categoria,
