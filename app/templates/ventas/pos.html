@@ -223,6 +223,7 @@ Ventas POS
 
         <!-- Botones -->
         <form
+            id="form-cobrar"
             method="POST"
             action="{{ url_for('ventas.cobrar') }}">
 
@@ -234,6 +235,7 @@ Ventas POS
             <div class="form-actions d-flex gap-2 mt-3">
 
                 <button
+                    id="btn-cobrar"
                     type="submit"
                     class="btn btn-save-form">
 
@@ -273,6 +275,30 @@ document.querySelector(
 ).value = document.querySelector(
 '#id_tipo_pago'
 ).value;
+
+</script>
+
+<script>
+
+document
+    .getElementById('form-cobrar')
+    .addEventListener(
+        'submit',
+        function() {
+
+            const boton = document.getElementById(
+                'btn-cobrar'
+            );
+
+            boton.disabled = true;
+
+            boton.innerHTML = `
+                <i class="bi bi-hourglass-split"></i>
+                Procesando venta...
+            `;
+
+        }
+    );
 
 </script>
 
