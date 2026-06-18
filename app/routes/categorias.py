@@ -85,7 +85,7 @@ def crear_categoria():
     if categoria_existente:
 
         flash(
-            'Ya existe una categoría con ese nombre',
+            f'No se pudo crear. Ya existe una categoría con ese nombre: "{nombre_categoria}"',
             'danger'
         )
 
@@ -149,10 +149,7 @@ def editar_categoria(id_categoria):
         categoria_existente['id_categoria'] != id_categoria
     ):
 
-        flash(
-            'Ya existe una categoría con ese nombre',
-            'danger'
-        )
+        flash(f'No se pudo actualizar. Ya existe una categoría con ese nombre: "{nombre_categoria}"', 'danger')
 
         return redirect(
             url_for(

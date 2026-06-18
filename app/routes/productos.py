@@ -166,7 +166,7 @@ def guardar_producto():
 
     if producto_existente:
 
-        flash(f'Ya existe un producto con ese código de barras: "{data['codigo_barras']}"', 'danger')
+        flash(f'No se pudo dar de alta. Ya existe un producto con ese código de barras: "{data['codigo_barras']}"', 'danger')
 
         return redirect(
             url_for('productos.crear_producto')
@@ -230,7 +230,7 @@ def actualizar_producto_route(id_producto):
         producto_existente['id_producto'] != id_producto
     ):
 
-        flash(f'Ya existe un producto con ese código de barras: "{data['codigo_barras']}"', 'danger')
+        flash(f'No se pudo actualizar. Ya existe un producto con ese código de barras: "{data['codigo_barras']}"', 'danger')
 
         return redirect(
             url_for(

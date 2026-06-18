@@ -115,6 +115,35 @@ def actualizar_proveedor(
     conn.close()
 
 
+
+def obtener_proveedor_por_nombre(nombre):
+
+    conn = get_connection()
+
+    cursor = conn.cursor(
+        dictionary=True,
+        buffered=True
+    )
+
+    cursor.execute(
+        """
+        SELECT
+            id_proveedor
+        FROM proveedores
+        WHERE LOWER(nombre) = LOWER(%s)
+        """,
+        (nombre,)
+    )
+
+    proveedor = cursor.fetchone()
+
+    cursor.close()
+    conn.close()
+
+    return proveedor
+
+
+
 def desactivar_proveedor(
     id_proveedor
 ):

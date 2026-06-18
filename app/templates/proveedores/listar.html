@@ -53,15 +53,25 @@ Gestión de Proveedores
 
                 <tr>
 
-                    <th>Proveedor</th>
+                    <th>Proveedor
+                        <i class="bi bi-caret-down-fill text-muted"></i>
+                    </th>
 
-                    <th>Teléfono</th>
+                    <th>Teléfono
+                        <i class="bi bi-caret-down-fill text-muted"></i>
+                    </th>
 
-                    <th>Email</th>
+                    <th>Email
+                        <i class="bi bi-caret-down-fill text-muted"></i>
+                    </th>
 
-                    <th>Estado</th>
+                    <th>Estado
+                        <i class="bi bi-caret-down-fill text-muted"></i>
+                    </th>
 
-                    <th>Acciones</th>
+                    <th>Acciones
+                        <i class="bi bi-caret-down-fill text-muted"></i>
+                    </th>
 
                 </tr>
 
@@ -92,8 +102,7 @@ Gestión de Proveedores
 
                         {% if p.activo %}
 
-                        <span
-                            class="badge-stock-ok">
+                        <span class="badge-status">
 
                             Activo
 
@@ -101,8 +110,7 @@ Gestión de Proveedores
 
                         {% else %}
 
-                        <span
-                            class="badge-stock-low">
+                        <span class="badge-status">
 
                             Inactivo
 
@@ -179,6 +187,7 @@ Gestión de Proveedores
                                                         <input
                                                             type="text"
                                                             name="nombre"
+                                                            maxlength="50"
                                                             class="form-control"
                                                             value="{{ p.nombre }}"
                                                             required>
@@ -196,6 +205,9 @@ Gestión de Proveedores
                                                         <input
                                                             type="text"
                                                             name="telefono"
+                                                            maxlength="10"
+                                                            inputmode="numeric"
+                                                            pattern="[0-9]{0,10}"
                                                             class="form-control"
                                                             value="{{ p.telefono or '' }}">
 
@@ -432,6 +444,7 @@ Gestión de Proveedores
                         <input
                             type="text"
                             name="nombre"
+                            maxlength="50"
                             class="form-control"
                             required>
 
@@ -448,6 +461,9 @@ Gestión de Proveedores
                         <input
                             type="text"
                             name="telefono"
+                            maxlength="10"
+                            inputmode="numeric"
+                            pattern="[0-9]{0,10}"
                             class="form-control">
 
                     </div>

@@ -13,7 +13,8 @@ from app.services.proveedor_service import (
     actualizar_proveedor,
     desactivar_proveedor,
     activar_proveedor,
-    obtener_proveedor_por_id
+    obtener_proveedor_por_id,
+    obtener_proveedor_por_nombre
 )
 
 proveedores_bp = Blueprint(
@@ -22,7 +23,35 @@ proveedores_bp = Blueprint(
     url_prefix='/proveedores'
 )
 
+# Validación de datos de proveedor
+def validar_proveedor(data):
 
+    nombre = data['nombre'].strip()
+
+    telefono = data['telefono'].strip()
+
+    if len(nombre) == 0:
+
+        return 'El nombre es obligatorio'
+
+    if len(nombre) > 50:
+
+        return 'El nombre no puede exceder 50 caracteres'
+
+    if telefono:
+
+        if not telefono.isdigit():
+
+            return 'El teléfono solo puede contener números'
+
+        if len(telefono) > 10:
+
+            return 'El teléfono no puede exceder 10 dígitos'
+
+    return None
+
+
+# Rutas para proveedores
 @proveedores_bp.route('/')
 def listar_proveedores():
 
@@ -34,6 +63,7 @@ def listar_proveedores():
     )
 
 
+# Rutas para crear proveedores
 @proveedores_bp.route(
     '/crear',
     methods=['POST']
@@ -53,6 +83,39 @@ def crear_proveedor():
 
     }
 
+    error = validar_proveedor(
+        data
+    )
+
+    if error:
+
+        flash(
+            error,
+            'danger'
+        )
+
+        return redirect(
+            url_for(
+                'proveedores.listar_proveedores'
+            )
+        )
+    
+    proveedor_existente = (
+        obtener_proveedor_por_nombre(
+            data['nombre']
+        )
+    )
+
+    if proveedor_existente:
+
+        flash(f'No se pudo crear. Ya existe un proveedor con ese nombre: "{data["nombre"]}"', 'danger')   
+
+        return redirect(
+            url_for(
+                'proveedores.listar_proveedores'
+            )
+        )
+
     insertar_proveedor(data)
 
     flash(
@@ -67,7 +130,7 @@ def crear_proveedor():
     )
 
 
-
+# Rutas para editar proveedores
 @proveedores_bp.route(
     '/editar/<int:id_proveedor>',
     methods=['POST']
@@ -87,6 +150,43 @@ def editar_proveedor(id_proveedor):
 
     }
 
+    error = validar_proveedor(
+        data
+    )
+
+    if error:
+
+        flash(
+            error,
+            'danger'
+        )
+
+        return redirect(
+            url_for(
+                'proveedores.listar_proveedores'
+            )
+        )
+
+    proveedor_existente = (
+        obtener_proveedor_por_nombre(
+            data['nombre']
+        )
+    )
+
+    if (
+        proveedor_existente
+        and
+        proveedor_existente['id_proveedor'] != id_proveedor
+    ):
+
+        flash(f'No se pudo actualizar. Ya existe un proveedor con ese nombre: "{data["nombre"]}"', 'danger')
+
+        return redirect(
+            url_for(
+                'proveedores.listar_proveedores'
+            )
+        )
+    
     actualizar_proveedor(
         id_proveedor,
         data
@@ -104,7 +204,7 @@ def editar_proveedor(id_proveedor):
     )
 
 
-
+# Rutas para desactivar proveedores
 @proveedores_bp.route(
     '/desactivar/<int:id_proveedor>'
 )
@@ -132,6 +232,7 @@ def desactivar_proveedor_route(
     )
 
 
+# Rutas para activar proveedores
 @proveedores_bp.route(
     '/activar/<int:id_proveedor>'
 )
