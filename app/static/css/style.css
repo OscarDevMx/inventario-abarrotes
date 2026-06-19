@@ -1651,3 +1651,61 @@ textarea.form-control-premium{
 
     font-weight:600;
 }
+
+/* =========================
+   POS - Tipo de Pago
+========================= */
+
+.tipo-pago-card{
+
+    margin-top:20px;
+
+    padding:18px;
+
+    background:#f8fbff;
+
+    border:2px solid #dbeafe;
+
+    border-radius:12px;
+
+    transition:.2s ease;
+}
+
+.tipo-pago-card:hover{
+
+    border-color:#93c5fd;
+}
+
+.tipo-pago-card .form-label-premium{
+
+    display:block;
+
+    margin-bottom:10px;
+
+    font-size:14px;
+
+    font-weight:700;
+
+    color:#2563eb;
+
+    text-transform:uppercase;
+
+    letter-spacing:.5px;
+}
+
+.tipo-pago-card .form-label-premium i{
+
+    margin-right:6px;
+}
+
+.tipo-pago-card .form-select{
+
+    border-width:2px;
+}
+
+.tipo-pago-card .form-select:focus{
+
+    border-color:#2563eb;
+
+    box-shadow:0 0 0 .2rem rgba(37,99,235,.15);
+}
