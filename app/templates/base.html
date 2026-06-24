@@ -175,6 +175,52 @@
 
         </div>
 
+        <!-- MENÚ MÓVIL -->
+
+        <div class="mobile-nav">
+
+            <a href="/">
+                <i class="bi bi-house-door"></i>
+                <span>Inicio</span>
+            </a>
+
+            <a href="/productos/">
+                <i class="bi bi-box-seam"></i>
+                <span>Productos</span>
+            </a>
+
+            <a href="{{ url_for('categorias.listar_categorias') }}">
+                <i class="bi bi-tags"></i>
+                <span>Categorías</span>
+            </a>
+
+            <a href="{{ url_for('proveedores.listar_proveedores') }}">
+                <i class="bi bi-truck"></i>
+                <span>Proveedores</span>
+            </a>
+
+            <a href="{{ url_for('ventas.pos') }}">
+                <i class="bi bi-cart3"></i>
+                <span>POS</span>
+            </a>
+
+            <a href="{{ url_for('ventas.historial') }}">
+                <i class="bi bi-clock-history"></i>
+                <span>Ventas</span>
+            </a>
+
+            <a href="{{ url_for('reportes.dashboard_reportes') }}">
+                <i class="bi bi-graph-up"></i>
+                <span>Reportes</span>
+            </a>
+
+            <a href="{{ url_for('movimientos.listar_movimientos') }}">
+                <i class="bi bi-arrow-left-right"></i>
+                <span>Movimientos</span>
+            </a>
+
+        </div>
+
         <!-- CONTENT BLOCK -->
 
         {% block content %}
@@ -197,7 +243,7 @@ document.addEventListener(
 
         const links = document.querySelectorAll(
 
-            '.sidebar a'
+            '.sidebar a, .mobile-nav a'
 
         );
 

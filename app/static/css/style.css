@@ -1783,3 +1783,103 @@ textarea.form-control-premium{
 
     box-shadow:0 0 0 .2rem rgba(37,99,235,.15);
 }
+
+/* =========================
+   MENÚ MÓVIL
+========================= */
+
+.mobile-nav{
+
+    display:none;
+}
+
+@media (max-width:768px){
+
+    .sidebar{
+
+        display:none;
+    }
+
+    .content{
+
+        margin-left:0;
+        padding-bottom:90px;
+    }
+
+    .mobile-nav{
+
+        display:flex;
+
+        position:fixed;
+
+        bottom:0;
+        left:0;
+        right:0;
+
+        background:#111827;
+
+        border-top:1px solid #374151;
+
+        overflow-x:auto;
+
+        z-index:999;
+
+        padding:8px 0;
+    }
+
+    .mobile-nav a{
+
+        min-width:90px;
+
+        display:flex;
+
+        flex-direction:column;
+
+        align-items:center;
+
+        justify-content:center;
+
+        text-decoration:none;
+
+        color:#d1d5db;
+
+        font-size:12px;
+
+        padding:6px 10px;
+
+        flex-shrink:0;
+
+        transition:.2s ease;
+    }
+
+    .mobile-nav i{
+
+        font-size:20px;
+
+        margin-bottom:4px;
+    }
+
+    .mobile-nav a:hover{
+
+        color:#0d6efd;
+    }
+
+}
+
+.mobile-nav a.active{
+
+    color:#0d6efd;
+
+    background:rgba(13,110,253,.15);
+
+    border-radius:10px;
+
+    font-weight:600;
+    
+    transform:translateY(-2px);
+}
+
+.mobile-nav a.active i{
+
+    color:#0d6efd;
+}
