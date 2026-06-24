@@ -36,7 +36,9 @@ Gestión de Categorías
 
             <i class="bi bi-plus-circle"></i>
 
-            Nueva Categoría
+            <span class="btn-new-text">
+                Nueva
+            </span>
 
         </button>
 
@@ -46,8 +48,7 @@ Gestión de Categorías
 
     <div class="table-responsive">
 
-        <table
-            class="table table-premium align-middle">
+        <table class="table table-premium table-categorias">
 
             <thead>
 
@@ -117,7 +118,7 @@ Gestión de Categorías
 
                         <div class="action-buttons">
                             {% if c.activo %}
-
+                                <!-- Botón Editar -->
                                 <button
                                     class="btn btn-edit"
                                     data-bs-toggle="modal"
@@ -125,7 +126,9 @@ Gestión de Categorías
 
                                     <i class="bi bi-pencil"></i>
 
-                                    Editar
+                                    <span class="btn-text">
+                                        Editar
+                                    </span>
 
                                 </button>
 
@@ -227,7 +230,9 @@ Gestión de Categorías
 
                                     <i class="bi bi-trash"></i>
 
-                                    Desactivar
+                                    <span class="btn-text">
+                                        Desactivar
+                                    </span>
 
                                 </button>
 
@@ -328,7 +333,9 @@ Gestión de Categorías
 
                                     <i class="bi bi-check-circle"></i>
 
-                                    Activar
+                                    <span class="btn-text">
+                                        Activar
+                                    </span>
 
                                 </a>
 
