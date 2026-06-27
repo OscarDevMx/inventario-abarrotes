@@ -24,6 +24,11 @@ Desarrollar una solución funcional para pequeños negocios de abarrotes que per
 
 ---
 
+## Demo en vivo
+
+🔗 https://inventario-abarrotes.onrender.com/
+
+---
 ## Tecnologías Utilizadas
 
 ### Backend
